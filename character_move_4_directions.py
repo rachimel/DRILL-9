@@ -13,6 +13,7 @@ RESOURCE_DIR = Path(__file__).resolve().parent
 
 FRAME_SIZE = 100
 FRAME_COUNT = 8
+ANIMATION_FPS = 8.0
 IDLE_ROWS = {1: 300, -1: 200}
 MOVE_SPEED = 10.0
 ARROW_KEYS = {p.SDLK_RIGHT, p.SDLK_LEFT, p.SDLK_UP, p.SDLK_DOWN}
@@ -24,6 +25,7 @@ class Character:
         self.y = HEIGHT / 2
         self.facing = 1
         self.frame = 0
+        self.animation_time = 0.0
         self.state = 'IDLE'
 
     def update(self, dt, keys):
@@ -34,6 +36,9 @@ class Character:
         if length:
             dx /= length
             dy /= length
+        if self.state == 'IDLE':
+            self.animation_time += dt
+            self.frame = min(int(self.animation_time * ANIMATION_FPS), FRAME_COUNT - 1)
         self.x += dx * MOVE_SPEED * dt
         self.y += dy * MOVE_SPEED * dt
 
