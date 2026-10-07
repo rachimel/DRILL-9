@@ -31,12 +31,17 @@ class Character:
     def update(self, dt, keys):
         dx = int(p.SDLK_RIGHT in keys) - int(p.SDLK_LEFT in keys)
         dy = int(p.SDLK_UP in keys) - int(p.SDLK_DOWN in keys)
+        previous_state = self.state
         self.state = 'WALK' if dx or dy else 'IDLE'
+        entered_idle = self.state == 'IDLE' and previous_state != 'IDLE'
+        if entered_idle:
+            self.frame = 0
+            self.animation_time = 0.0
         length = hypot(dx, dy)
         if length:
             dx /= length
             dy /= length
-        if self.state == 'IDLE':
+        if self.state == 'IDLE' and not entered_idle:
             self.animation_time += dt
             self.frame = int(self.animation_time * ANIMATION_FPS) % FRAME_COUNT
         self.x += dx * MOVE_SPEED * dt
