@@ -40,7 +40,7 @@ class Character:
             self.animation_time = 0.0
         entered_walk = self.state == 'WALK' and previous_state != 'WALK'
         if entered_walk:
-            self.facing = 1
+            self.facing = -1 if dx < 0 else 1
             self.frame = 0
             self.animation_time = 0.0
         length = hypot(dx, dy)
