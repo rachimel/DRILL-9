@@ -9,12 +9,27 @@ WIDTH, HEIGHT = 800, 600
 RESOURCE_DIR = Path(__file__).resolve().parent
 
 
+FRAME_SIZE = 100
+
+
+class Character:
+    def __init__(self):
+        self.x = 100.0
+        self.y = 100.0
+        self.frame = 0
+
+    def draw(self, sheet):
+        sheet.clip_draw(self.frame * FRAME_SIZE, 300, FRAME_SIZE, FRAME_SIZE,
+                        self.x, self.y)
+
+
 def main():
     p.open_canvas(WIDTH, HEIGHT)
     ground = sheet = None
     try:
         ground = p.load_image(str(RESOURCE_DIR / 'TUK_GROUND.png'))
         sheet = p.load_image(str(RESOURCE_DIR / 'animation_sheet.png'))
+        character = Character()
         running = True
         while running:
             for event in p.get_events():
@@ -22,6 +37,7 @@ def main():
                     running = False
             p.clear_canvas()
             ground.draw(WIDTH / 2, HEIGHT / 2, WIDTH, HEIGHT)
+            character.draw(sheet)
             p.update_canvas()
             p.delay(0.01)
     finally:
