@@ -38,16 +38,18 @@ class Character:
         if entered_idle:
             self.frame = 0
             self.animation_time = 0.0
+        new_facing = (-1 if dx < 0 else 1) if dx and not dy else self.facing
+        direction_changed = self.state == 'WALK' and new_facing != self.facing
         entered_walk = self.state == 'WALK' and previous_state != 'WALK'
-        if entered_walk:
-            self.facing = -1 if dx < 0 else 1
+        if entered_walk or direction_changed:
+            self.facing = new_facing
             self.frame = 0
             self.animation_time = 0.0
         length = hypot(dx, dy)
         if length:
             dx /= length
             dy /= length
-        if not entered_idle and not entered_walk:
+        if not entered_idle and not entered_walk and not direction_changed:
             self.animation_time += dt
             self.frame = int(self.animation_time * ANIMATION_FPS) % FRAME_COUNT
         self.x += dx * MOVE_SPEED * dt
