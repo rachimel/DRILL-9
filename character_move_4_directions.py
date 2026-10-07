@@ -14,8 +14,8 @@ FRAME_SIZE = 100
 
 class Character:
     def __init__(self):
-        self.x = 100.0
-        self.y = 100.0
+        self.x = WIDTH / 2
+        self.y = HEIGHT / 2
         self.frame = 0
 
     def draw(self, sheet):
