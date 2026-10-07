@@ -23,9 +23,7 @@ class Character:
 
     def update(self, dt, keys):
         dx = int(p.SDLK_RIGHT in keys) - int(p.SDLK_LEFT in keys)
-        dy = int(p.SDLK_UP in keys)
-        if p.SDLK_DOWN in keys:
-            dy = -1
+        dy = int(p.SDLK_UP in keys) - int(p.SDLK_DOWN in keys)
         if dx:
             dy = 0
         self.x += dx * MOVE_SPEED * dt
