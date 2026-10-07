@@ -22,9 +22,7 @@ class Character:
         self.frame = 0
 
     def update(self, dt, keys):
-        dx = int(p.SDLK_RIGHT in keys)
-        if p.SDLK_LEFT in keys:
-            dx = -1
+        dx = int(p.SDLK_RIGHT in keys) - int(p.SDLK_LEFT in keys)
         dy = 0
         self.x += dx * MOVE_SPEED * dt
         self.y += dy * MOVE_SPEED * dt
