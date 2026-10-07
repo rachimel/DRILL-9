@@ -47,7 +47,7 @@ class Character:
         if length:
             dx /= length
             dy /= length
-        if self.state == 'IDLE' and not entered_idle:
+        if not entered_idle and not entered_walk:
             self.animation_time += dt
             self.frame = int(self.animation_time * ANIMATION_FPS) % FRAME_COUNT
         self.x += dx * MOVE_SPEED * dt
