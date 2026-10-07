@@ -21,10 +21,12 @@ class Character:
         self.x = WIDTH / 2
         self.y = HEIGHT / 2
         self.frame = 0
+        self.state = 'IDLE'
 
     def update(self, dt, keys):
         dx = int(p.SDLK_RIGHT in keys) - int(p.SDLK_LEFT in keys)
         dy = int(p.SDLK_UP in keys) - int(p.SDLK_DOWN in keys)
+        self.state = 'WALK' if dx or dy else 'IDLE'
         length = hypot(dx, dy)
         if length:
             dx /= length
