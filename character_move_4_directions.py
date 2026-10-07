@@ -32,6 +32,7 @@ class Character:
     def update(self, dt, keys):
         dx = int(p.SDLK_RIGHT in keys) - int(p.SDLK_LEFT in keys)
         dy = int(p.SDLK_UP in keys) - int(p.SDLK_DOWN in keys)
+        # 경계 보정 후의 변위가 아니라 유효 입력으로 상태를 결정한다.
         previous_state = self.state
         self.state = 'WALK' if dx or dy else 'IDLE'
         entered_idle = self.state == 'IDLE' and previous_state != 'IDLE'
@@ -54,6 +55,9 @@ class Character:
             self.frame = int(self.animation_time * ANIMATION_FPS) % FRAME_COUNT
         self.x += dx * MOVE_SPEED * dt
         self.y += dy * MOVE_SPEED * dt
+        self.clamp_position()
+
+    def clamp_position(self):
         self.y = min(HEIGHT - FRAME_SIZE / 2, max(FRAME_SIZE / 2, self.y))
         self.x = min(WIDTH - FRAME_SIZE / 2, max(FRAME_SIZE / 2, self.x))
 
