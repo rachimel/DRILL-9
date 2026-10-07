@@ -15,6 +15,7 @@ FRAME_SIZE = 100
 FRAME_COUNT = 8
 ANIMATION_FPS = 8.0
 IDLE_ROWS = {1: 300, -1: 200}
+WALK_ROWS = {1: 100, -1: 0}
 MOVE_SPEED = 10.0
 ARROW_KEYS = {p.SDLK_RIGHT, p.SDLK_LEFT, p.SDLK_UP, p.SDLK_DOWN}
 
@@ -37,6 +38,11 @@ class Character:
         if entered_idle:
             self.frame = 0
             self.animation_time = 0.0
+        entered_walk = self.state == 'WALK' and previous_state != 'WALK'
+        if entered_walk:
+            self.facing = 1
+            self.frame = 0
+            self.animation_time = 0.0
         length = hypot(dx, dy)
         if length:
             dx /= length
@@ -48,7 +54,8 @@ class Character:
         self.y += dy * MOVE_SPEED * dt
 
     def draw(self, sheet):
-        sheet.clip_draw(self.frame * FRAME_SIZE, IDLE_ROWS[self.facing], FRAME_SIZE, FRAME_SIZE,
+        rows = IDLE_ROWS if self.state == 'IDLE' else WALK_ROWS
+        sheet.clip_draw(self.frame * FRAME_SIZE, rows[self.facing], FRAME_SIZE, FRAME_SIZE,
                         self.x, self.y)
 
 
