@@ -54,6 +54,7 @@ class Character:
             self.frame = int(self.animation_time * ANIMATION_FPS) % FRAME_COUNT
         self.x += dx * MOVE_SPEED * dt
         self.y += dy * MOVE_SPEED * dt
+        self.x = max(FRAME_SIZE / 2, self.x)
 
     def draw(self, sheet):
         rows = IDLE_ROWS if self.state == 'IDLE' else WALK_ROWS
