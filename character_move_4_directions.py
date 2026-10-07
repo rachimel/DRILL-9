@@ -14,6 +14,8 @@ def main():
             for event in p.get_events():
                 if event.type == p.SDL_QUIT:
                     running = False
+            p.clear_canvas()
+            p.update_canvas()
             p.delay(0.01)
     finally:
         p.close_canvas()
