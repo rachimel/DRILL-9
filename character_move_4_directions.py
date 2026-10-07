@@ -11,9 +11,10 @@ RESOURCE_DIR = Path(__file__).resolve().parent
 
 def main():
     p.open_canvas(WIDTH, HEIGHT)
-    ground = None
+    ground = sheet = None
     try:
         ground = p.load_image(str(RESOURCE_DIR / 'TUK_GROUND.png'))
+        sheet = p.load_image(str(RESOURCE_DIR / 'animation_sheet.png'))
         running = True
         while running:
             for event in p.get_events():
@@ -24,7 +25,7 @@ def main():
             p.update_canvas()
             p.delay(0.01)
     finally:
-        ground = None
+        ground = sheet = None
         p.close_canvas()
 
 
