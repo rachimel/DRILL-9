@@ -20,6 +20,7 @@ def main():
                 if event.type == p.SDL_QUIT:
                     running = False
             p.clear_canvas()
+            ground.draw(WIDTH / 2, HEIGHT / 2, WIDTH, HEIGHT)
             p.update_canvas()
             p.delay(0.01)
     finally:
