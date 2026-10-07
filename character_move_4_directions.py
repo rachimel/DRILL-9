@@ -11,6 +11,8 @@ RESOURCE_DIR = Path(__file__).resolve().parent
 
 
 FRAME_SIZE = 100
+MOVE_SPEED = 10.0
+ARROW_KEYS = {p.SDLK_RIGHT}
 
 
 class Character:
@@ -20,7 +22,10 @@ class Character:
         self.frame = 0
 
     def update(self, dt, keys):
-        pass
+        dx = int(p.SDLK_RIGHT in keys)
+        dy = 0
+        self.x += dx * MOVE_SPEED * dt
+        self.y += dy * MOVE_SPEED * dt
 
     def draw(self, sheet):
         sheet.clip_draw(self.frame * FRAME_SIZE, 300, FRAME_SIZE, FRAME_SIZE,
@@ -41,6 +46,10 @@ def main():
             for event in p.get_events():
                 if event.type == p.SDL_QUIT:
                     running = False
+                elif event.type == p.SDL_KEYDOWN and event.key in ARROW_KEYS:
+                    keys.add(event.key)
+                elif event.type == p.SDL_KEYUP and event.key in ARROW_KEYS:
+                    keys.discard(event.key)
             now = perf_counter()
             dt = now - previous_time
             previous_time = now
