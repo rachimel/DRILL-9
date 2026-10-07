@@ -12,6 +12,8 @@ RESOURCE_DIR = Path(__file__).resolve().parent
 
 
 FRAME_SIZE = 100
+FRAME_COUNT = 8
+IDLE_ROWS = {1: 300, -1: 200}
 MOVE_SPEED = 10.0
 ARROW_KEYS = {p.SDLK_RIGHT, p.SDLK_LEFT, p.SDLK_UP, p.SDLK_DOWN}
 
@@ -20,6 +22,7 @@ class Character:
     def __init__(self):
         self.x = WIDTH / 2
         self.y = HEIGHT / 2
+        self.facing = 1
         self.frame = 0
         self.state = 'IDLE'
 
@@ -35,7 +38,7 @@ class Character:
         self.y += dy * MOVE_SPEED * dt
 
     def draw(self, sheet):
-        sheet.clip_draw(self.frame * FRAME_SIZE, 300, FRAME_SIZE, FRAME_SIZE,
+        sheet.clip_draw(self.frame * FRAME_SIZE, IDLE_ROWS[self.facing], FRAME_SIZE, FRAME_SIZE,
                         self.x, self.y)
 
 
