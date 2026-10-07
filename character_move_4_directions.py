@@ -1,6 +1,7 @@
 """방향키로 소년을 이동시키는 pico2d 프로그램."""
 
 
+from math import hypot
 from pathlib import Path
 from time import perf_counter
 
@@ -24,6 +25,10 @@ class Character:
     def update(self, dt, keys):
         dx = int(p.SDLK_RIGHT in keys) - int(p.SDLK_LEFT in keys)
         dy = int(p.SDLK_UP in keys) - int(p.SDLK_DOWN in keys)
+        length = hypot(dx, dy)
+        if length:
+            dx /= length
+            dy /= length
         self.x += dx * MOVE_SPEED * dt
         self.y += dy * MOVE_SPEED * dt
 
