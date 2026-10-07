@@ -2,6 +2,7 @@
 
 
 from pathlib import Path
+from time import perf_counter
 
 import pico2d as p
 
@@ -18,6 +19,9 @@ class Character:
         self.y = HEIGHT / 2
         self.frame = 0
 
+    def update(self, dt, keys):
+        pass
+
     def draw(self, sheet):
         sheet.clip_draw(self.frame * FRAME_SIZE, 300, FRAME_SIZE, FRAME_SIZE,
                         self.x, self.y)
@@ -30,11 +34,17 @@ def main():
         ground = p.load_image(str(RESOURCE_DIR / 'TUK_GROUND.png'))
         sheet = p.load_image(str(RESOURCE_DIR / 'animation_sheet.png'))
         character = Character()
+        keys = set()
+        previous_time = perf_counter()
         running = True
         while running:
             for event in p.get_events():
                 if event.type == p.SDL_QUIT:
                     running = False
+            now = perf_counter()
+            dt = now - previous_time
+            previous_time = now
+            character.update(dt, keys)
             p.clear_canvas()
             ground.draw(WIDTH / 2, HEIGHT / 2, WIDTH, HEIGHT)
             character.draw(sheet)
