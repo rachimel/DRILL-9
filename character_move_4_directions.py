@@ -54,6 +54,7 @@ class Character:
             self.frame = int(self.animation_time * ANIMATION_FPS) % FRAME_COUNT
         self.x += dx * MOVE_SPEED * dt
         self.y += dy * MOVE_SPEED * dt
+        self.y = max(FRAME_SIZE / 2, self.y)
         self.x = min(WIDTH - FRAME_SIZE / 2, max(FRAME_SIZE / 2, self.x))
 
     def draw(self, sheet):
