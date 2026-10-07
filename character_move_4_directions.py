@@ -12,7 +12,7 @@ RESOURCE_DIR = Path(__file__).resolve().parent
 
 FRAME_SIZE = 100
 MOVE_SPEED = 10.0
-ARROW_KEYS = {p.SDLK_RIGHT, p.SDLK_LEFT, p.SDLK_UP}
+ARROW_KEYS = {p.SDLK_RIGHT, p.SDLK_LEFT, p.SDLK_UP, p.SDLK_DOWN}
 
 
 class Character:
@@ -24,6 +24,8 @@ class Character:
     def update(self, dt, keys):
         dx = int(p.SDLK_RIGHT in keys) - int(p.SDLK_LEFT in keys)
         dy = int(p.SDLK_UP in keys)
+        if p.SDLK_DOWN in keys:
+            dy = -1
         if dx:
             dy = 0
         self.x += dx * MOVE_SPEED * dt
