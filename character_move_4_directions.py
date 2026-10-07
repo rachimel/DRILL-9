@@ -38,7 +38,7 @@ class Character:
             dy /= length
         if self.state == 'IDLE':
             self.animation_time += dt
-            self.frame = min(int(self.animation_time * ANIMATION_FPS), FRAME_COUNT - 1)
+            self.frame = int(self.animation_time * ANIMATION_FPS) % FRAME_COUNT
         self.x += dx * MOVE_SPEED * dt
         self.y += dy * MOVE_SPEED * dt
 
